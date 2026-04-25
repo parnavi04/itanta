@@ -1,0 +1,46 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# config.yaml
+# Itanta Agentic AI Framework — All tuneable parameters
+#
+# Change values here. Never change source code for configuration.
+# Satisfies NFR-03: configurable via single file without code changes.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# How many times the Recovery agent retries a failing task before escalating
+max_retries: 3
+
+# If true, rolls back to last passing checkpoint when max retries is hit
+# If false, escalates to human with a detailed report instead
+rollback_on_max_retries: true
+
+# Default complexity tier (1-5). Overridden by the user's spec if detectable.
+# 1=CRUD, 2=BusinessLogic, 3=ExternalAPI, 4=Auth/RBAC, 5=MongoSQL
+target_tier: 1
+
+# Where generated projects are written (relative to framework root)
+output_base_dir: "./generated_projects"
+
+# ── Human-in-the-loop checkpoints ──────────────────────────────────────────
+# Set any to false to skip that checkpoint (auto-approve)
+# WARNING: disabling checkpoints reduces human oversight
+checkpoints:
+  require_spec_approval: true     # After Intake agent produces spec
+  require_plan_approval: true     # After Planner agent produces task list
+  require_diff_approval: true     # Before each code change is applied
+
+# ── Guardrails ──────────────────────────────────────────────────────────────
+guardrails:
+  # Force human review if more than this many files change in one code generation
+  file_change_threshold: 10
+
+  # Safety: framework will refuse to delete files outside project directory (NFR-05)
+  max_file_deletions: 0
+
+  # Shell commands the framework will refuse to execute, ever
+  block_shell_commands:
+    - "rm -rf"
+    - "sudo rm"
+    - "format"
+    - "del /f"
+    - "dd if="
+    - "mkfs"
