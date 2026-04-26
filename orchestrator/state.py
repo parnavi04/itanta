@@ -1,3 +1,6 @@
+from __future__ import annotations
+import os
+os.environ.setdefault("LANGGRAPH_STRICT_MSGPACK", "false")
 """
 orchestrator/state.py
 ━━━━━━━━━━━━━━━━━━━━
@@ -10,7 +13,7 @@ RULES (DO NOT BREAK):
   - State is serialized to SQLite after every node — keep all fields JSON-serializable.
 """
 
-from __future__ import annotations
+
 
 from enum import Enum
 from typing import Any, Optional

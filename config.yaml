@@ -7,7 +7,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 # How many times the Recovery agent retries a failing task before escalating
-max_retries: 3
+max_retries: 2
 
 # If true, rolls back to last passing checkpoint when max retries is hit
 # If false, escalates to human with a detailed report instead
